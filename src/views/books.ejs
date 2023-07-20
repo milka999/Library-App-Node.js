@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+    <h1>Prikaz knjiga: </h1>
+    <% if(!books || books.length === 0) { %>
+        <p> No books found </p>
+    <% } else { %>
+        <% for(const book of books) { %>
+            <div>
+                <a href="/book/:<%= book.id %>"> <%= book.title %> </a>
+                <p> <%= book.summary %> </p>
+                <!-- <p> <%= book.category %> </p> -->
+            </div>
+        <% } %>
+    <% } %>
+    
+    <a href="/new-book">Dodaj novu knjigu</a>
+    
+</body>
+</html>

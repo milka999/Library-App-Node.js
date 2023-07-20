@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["views"] 
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+  name String @unique
+  books Book[]
+}
+
+model Letter{
+  id Int @id @default(autoincrement())
+  name String @unique
+  books Book[]
+}
+
+model Language{
+  id Int @id @default(autoincrement())
+  name String @unique
+  books Book[]
+}
+
+model Binding{
+  id Int @id @default(autoincrement())
+  name String @unique
+  books Book[]
+}
+
+model Format{
+  id Int @id @default(autoincrement())
+  name String @unique
+  books Book[]
+}
+
+model Author{
+  id Int @id @default(autoincrement())
+  name String @unique
+  books Book[]
+}
+
+model Book {
+  id Int @id @default(autoincrement())
+  title String
+  summary String
+  page_count Int
+  release_year Int
+  isbn String @unique
+  authors Author[]
+  categories Category[]
+  letter Letter @relation(fields: [letterId], references: [id])
+  letterId Int
+  language Language @relation(fields: [languageId], references: [id])
+  languageId Int
+  binding Binding @relation(fields: [bindingId], references: [id])
+  bindingId Int
+  format Format @relation(fields: [formatId], references: [id])
+  formatId Int
+  dateAdded DateTime @default(now())
+}
+

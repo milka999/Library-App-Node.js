@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= book.title %> </title>
+</head>
+<body>
+    <div>
+        <h1>Naslov: </h1>
+        <p> <%= book.title %> </p>
+    </div>
+    <div>
+        <h4>Kratak sadržaj: </h4>
+        <p> <%= book.summary %></p>
+    </div>
+        <h4>Autor(i): </h4>
+        <p> 
+            <% for(const author of book.authors) { %>
+                <span><%= author.name %> </span>
+            <% } %>
+
+        </p>
+    </div>
+    <div>
+        <h4>Kategorije: </h4>
+        <p> 
+            <% for(const category of book.categories) { %>
+                <span><%= category.name %> </span>
+            <% } %>
+
+        </p>
+    </div>
+    <div>
+        <h4>Jezik: </h4>
+        <p><%= book.language.name %></p>
+    </div>
+    <div>
+        <h4>Format: </h4>
+        <p><%= book.format.name %></p>
+    </div>
+    <div>
+        <h4>Povez: </h4>
+        <p> <%= book.binding.name %> </p>
+    </div>
+    <div>
+        <h4>Pismo: </h4>
+        <p> <%= book.letter.name %> </p>
+    </div>
+    <div>
+        <h4>ISBN: </h4>
+        <p> <%= book.isbn %> </p>
+    </div>
+    <div>
+        <h4>Broj stranica: </h4>
+        <p><%= book.page_count %></p>
+    </div>
+    <div>
+        <h4>Godina izdavanja: </h4>
+        <p> <%= book.release_year %> </p>
+    </div>
+    <div>
+        <h4>Dodato datuma:</h4>
+        <p><%= book.dateAdded %> </p>
+    </div>
+    
+    <a href="/edit/:<%= book.id %>">Izmjeni podatke o knjizi</a>
+
+</body>
+</html>
