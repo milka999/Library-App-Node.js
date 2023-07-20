@@ -47,23 +47,11 @@ authRouter.get('/register', async(req: Request, res: Response) => {
 });
 
 authRouter.post('/register', async(req: Request, res: Response) => {
-    /* try{
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const user = await AuthService.createUser(req.body.email, req.body.name, hashedPassword);
-        //return res.status(200).json(user);
-        res.redirect('login');
-    }catch(error: any){
-        //return res.status(500).json(error.message);
-    } */
-    const { name, email, password } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 8);
-    
-    const user = await db.user.create({
-        data: { name, email, password: hashedPassword },
-    });
-
-    //res.json({ id: user.id, email: user.email, message: 'User registered successfully!' });
-    res.redirect('login');
+    if(req.body.name && req.body.email && req.body.password){
+        AuthService.createUser(req.body.name, req.body.email, req.body.password);
+        res.redirect('/login');
+    }
+   res.redirect('/register');
 });
 
 authRouter.post('/logout', function(req, res, next) {

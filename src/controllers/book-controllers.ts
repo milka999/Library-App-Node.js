@@ -63,42 +63,7 @@ export const getBook = async(id: number) => {
     )
 };
 
-/* export const createBook = async(book: Omit<Book, "id">) => {
-    const {title, summary, page_count, release_year, isbn, format, language, letter, binding, categories, authors} = book;
-    return await db.book.create({
-        data: {
-            title,
-            summary,
-            page_count,
-            release_year,
-            isbn,
-            format: {
-                connect: format
-            },
-            language: {
-                connect: language
-            },
-            letter: {
-                connect: letter
-            },
-            binding: {
-                connect: binding
-            },
-            categories: {
-                connect: categories
-            },
-            authors: {
-                connect: authors
-            }
-        },
-        select: {
-            title: true,
-            summary: true
-        }
-    })
-};
- */
-export const updateBook = async(id: number) => {
+/* export const updateBook = async(id: number) => {
     return await db.book.update({
         where: {
             id,
@@ -111,7 +76,7 @@ export const updateBook = async(id: number) => {
     )
 
 };
-
+ */
 export const deleteBook = async(id: number) => {
     return await db.book.delete({
         where: {

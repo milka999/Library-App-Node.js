@@ -1,6 +1,5 @@
-// Funkcije koje vrše pozive ka bazi podataka
 import { db } from "../utils/db.server";
-//import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 export interface User {
     id: number;
@@ -25,19 +24,10 @@ export const getUserById = async(id: string) => {
     });
 };
 
-/* export const createUser = async(email: string, name: string, password: string) => {
-        //const {email, name, password} = user;
-        return await db.user.create({
-            data: {
-                name,
-                email,
-                password,
-            },
-            select:{
-                id: true,
-                name: true,
-                email: true,
-                password: true,
-            },
-        });
-    }; */
+export const createUser = async(name: string, email: string, password: string) => {
+    const hashedPassword = bcrypt.hashSync(password, 8);
+    
+    const user = await db.user.create({
+        data: { name, email, password: hashedPassword },
+    });
+};

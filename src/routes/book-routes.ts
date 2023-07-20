@@ -15,33 +15,22 @@ import * as BookService from "../controllers/book-controllers";
 
 const bookRouter = express.Router();
 
-
-
-
-//rute
 bookRouter.get('/', async (req: Request, res: Response) => {
     try{
         const books = await BookService.getAllBooks();
         res.render('books', {books: books});
-        //return res.status(200).json(books);
     }catch(error: any){
         return res.status(500).json(error.message);
     }
 });
 
 bookRouter.get('/new-book', isLoggedIn, (req: Request, res: Response) => {
-    /* if(req.session == true){
-        res.render('new_book');
-    } else {
-        res.render('not-accessible');
-    } */
     res.render('new_book');
 });
 
 bookRouter.post('/new-book', async (req: Request, res: Response) => {
     try{
         const {title, summary, category, authors, release_year, page_count, language, letter, binding, format, isbn} = req.body;
-        //const [categories] = req.body.category;
         const categories = Array.from(category);
         const book = await db.book.create({
             data: {
@@ -86,31 +75,16 @@ bookRouter.post('/new-book', async (req: Request, res: Response) => {
         res.redirect('/');
     }catch(error: any){
         return res.status(500).json(error.message);
-        console.log(error);
     }
 });
 
-/* bookRouter.get('book_details/:id', async (req, res) => {
-    try{
-        const book = await BookService.getBook(req.params.id);
-        console.log(book);
-        console.log(req.params.id);
-        res.render('/book_details', {book: book});
-        console.log(res.status(200).json(book));
-    }catch(error: any){
-        return res.status(500).json(error.message);
-    }
-}); */
-
 bookRouter.get('/book/:id', async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id.split(':')[1]);
-    //console.log(id);
-    //console.log(req.params.id);
+    const bookId = parseInt(req.params.id.split(':')[1]);
     console.log(req.session);
     try {
         const book = await db.book.findUnique({
           where: { 
-            id,
+            id: bookId,
             
          },
             include: {
@@ -134,17 +108,14 @@ bookRouter.get('/edit/:id', isLoggedIn, async (req: Request, res: Response) => {
     try{
         const book = await BookService.getBook(parseInt(req.params.id.split(':')[1]));
         res.render('editbook', {book: book});
-        //return res.status(200).json(book);
     }catch(error: any){
-        //return res.status(500).json(error.message);
+        return res.status(500).json(error.message);
     }
 });
 
 bookRouter.post('/edit/:id', async (req: Request, res: Response)=>{
     try{
         const id = parseInt(req.params.id.split(':')[1]);
-        //console.log(req.body.category);
-        //const bookId = parseInt(req.params.id);
         const {title, summary, category, authors, release_year, page_count, language, letter, binding, format, isbn} = req.body;
         const categories = Array.from(category);
         const book = await db.book.update({
@@ -189,10 +160,11 @@ bookRouter.post('/edit/:id', async (req: Request, res: Response)=>{
                 id,
             },
         });
+        console.log(book);
         res.redirect('/');
     }catch(error: any){
-        console.error(error); 
-        return res.status(500).json({ error: error.toString() });
+        //console.error(error); 
+        return res.status(500).json(error.message);
     }
 });
 
@@ -200,16 +172,14 @@ bookRouter.get('/delete/:id', isLoggedIn, async(req: Request, res: Response) => 
     try{
         const book = await BookService.getBook(parseInt(req.params.id.split(':')[1]));
         res.render('delete', {book: book});
-        //return res.status(200).json(book);
     }catch(error: any){
-        //return res.status(500).json(error.message);
+        return res.status(500).json(error.message);
     }
 });
 
 bookRouter.post('/delete/:id', async (req: Request, res: Response) => {
     try{
         await BookService.deleteBook(parseInt(req.params.id.split(':')[1]));
-        //return res.status(200);
         res.redirect('/');
     }catch(error: any) {
         return res.status(500).json(error.message);
