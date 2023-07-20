@@ -4,4 +4,4 @@ Pokretanje:
 
 ```npm install```
 ```npx prisma migrate```
-```nps prisma db seed```
+```npx prisma db seed```
