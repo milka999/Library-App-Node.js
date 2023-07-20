@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/base.css">
     <title> <%= book.title %> </title>
 </head>
 <body>
+    <%- include('navigation') %>
+    <div class="content" >
+        
     <div>
-        <h1>Naslov: </h1>
-        <p> <%= book.title %> </p>
+        <h1> <%= book.title %> </h1>
+        <hr>
     </div>
+    
+    <div id="book-details">
     <div>
         <h4>Kratak sadržaj: </h4>
         <p> <%= book.summary %></p>
     </div>
+    <div>
         <h4>Autor(i): </h4>
         <p> 
             <% for(const author of book.authors) { %>
@@ -26,7 +33,7 @@
         <h4>Kategorije: </h4>
         <p> 
             <% for(const category of book.categories) { %>
-                <span><%= category.name %> </span>
+                <span><%= category.name %></span>
             <% } %>
 
         </p>
@@ -63,8 +70,9 @@
         <h4>Dodato datuma:</h4>
         <p><%= book.dateAdded %> </p>
     </div>
+</div>
     
     <a href="/edit/:<%= book.id %>">Izmjeni podatke o knjizi</a>
-
+</div>
 </body>
 </html>

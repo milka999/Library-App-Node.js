@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <title>Online Biblioteka</title>
 </head>
 <body>
-    <main>
+    <%- include('navigation') %>
+    <div class="content">
         <form action="/new-book" method="POST">
             <div>
                 <label for="title">Naziv knjige:</label>
@@ -83,6 +85,6 @@
                 <input type="submit" value="Send">
             </div>
         </form>
-    </main>
+    </div>
 </body>
 </html>

@@ -1,15 +1,10 @@
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
-import { body, check, validationResult } from "express-validator";
 import { db } from "../utils/db.server";
-import session from 'express-session';
 import { isLoggedIn } from '../utils/passport';
 
 
 // promijeni summary iz string u text tip
-// okači kod na Github
-// probaj da malo refkatorišeš sve da bude čitljivije
-// prepravi frontend da bolje izgleda
 
 import * as BookService from "../controllers/book-controllers";
 

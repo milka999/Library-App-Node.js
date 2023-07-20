@@ -63,20 +63,6 @@ export const getBook = async(id: number) => {
     )
 };
 
-/* export const updateBook = async(id: number) => {
-    return await db.book.update({
-        where: {
-            id,
-        },
-        data: {
-
-        },
-    }
-        
-    )
-
-};
- */
 export const deleteBook = async(id: number) => {
     return await db.book.delete({
         where: {
@@ -86,6 +72,16 @@ export const deleteBook = async(id: number) => {
 };
 
 export const getAllBooks = async() => {
-    return await db.book.findMany();
+    return await db.book.findMany({
+     include: {
+        language: true,
+        format: true,
+        letter: true,
+        categories: true,
+        binding: true,
+        authors: true,
+    },}
+        
+    );
 }
 

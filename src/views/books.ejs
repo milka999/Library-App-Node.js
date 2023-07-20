@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <title>Online Biblioteka</title>
 </head>
 <body>
-    <ul>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
+    <%- include('navigation') %>
+    <div class="content">
     <h1>Prikaz knjiga: </h1>
     <% if(!books || books.length === 0) { %>
         <p> No books found </p>
     <% } else { %>
-        <% for(const book of books) { %>
-            <div>
-                <a href="/book/:<%= book.id %>"> <%= book.title %> </a>
-                <p> <%= book.summary %> </p>
-                <!-- <p> <%= book.category %> </p> -->
-            </div>
-        <% } %>
+        <table>
+            <tr>
+                <th>Naslov</th>
+                <th>Autori</th>
+                <th>Kategorije</th>
+            </tr>
+            <% for(const book of books) { %>
+                <tr>
+                    <td><a href="/book/:<%= book.id %>"> <%= book.title %> </a></td>
+                    <td><% for(const author of book.authors) { %>
+                        <span><%= author.name %> </span>
+                    <% } %></td>
+                    <td><% for(const category of book.categories) { %>
+                        <span><%= category.name %> </span>
+                    <% } %></td>
+                    </tr>
+            <% } %>
+        </table>
+        
     <% } %>
     
     <a href="/new-book">Dodaj novu knjigu</a>
-    
+    </div>
 </body>
 </html>

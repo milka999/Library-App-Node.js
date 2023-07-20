@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Izmjena knjige</title>
-    
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/form.css">
+    <title>Online Biblioteka</title> 
 </head>
 <body>
-    <main>
+    <%- include('navigation') %>
+    <div class="content">
         <form action="/edit/:<%= book.id %>" method="POST">
             <div>
                 <label for="title">Naziv knjige:</label>
@@ -15,7 +17,7 @@
             </div>
             <div>
                 <label for="summary">Kratak sadržaj:</label>
-                <textarea name="summary" id="summary" cols="30" rows="10" value="<%=book.summary %>"></textarea>
+                <textarea name="summary" id="summary" cols="30" rows="10" ><%=book.summary %></textarea>
             </div>
             <div>
                 <label for="page_count">Broj strana :</label>
@@ -27,7 +29,7 @@
             </div>
             <div>
                 <label for="category">Izaberite kategorije: </label>
-                <select id="category" name="category" multiple value="<%=book.categories.name %>">
+                <select id="category" name="category" multiple value="<%=book.categories %>">
                     <option value="1">Roman</option>
                     <option value="2">Udžbenik</option>
                     <option value="3">Horor</option>
@@ -47,7 +49,7 @@
             
             <div>
                 <label for="language">Jezik: </label>
-                <select id="language" name="language" >
+                <select id="language" name="language" selected="<%= book.languageId %>">
                     <option value="1">Crnogorski</option>
                     <option value="2">Srpski</option>
                     <option value="3">Engleski</option>
@@ -57,21 +59,21 @@
             </div>
             <div>
                 <label for="letter">Pismo: </label>
-                <select id="letter" name="letter" >
+                <select id="letter" name="letter" selected="<%= book.letter %>">
                     <option value="1">Ćirilica</option>
                     <option value="2">Latinica</option>
                 </select>
             </div>
             <div>
                 <label for="binding">Povez: </label>
-                <select id="binding" name="binding">
+                <select id="binding" name="binding" selected="<%= book.binding %>">
                     <option value="1">Tvrdi Povez</option>
                     <option value="2">Meki Povez</option>
                 </select>
             </div>
             <div>
                 <label for="format">Format: </label>
-                <select id="format" name="format" >
+                <select id="format" name="format" selected="<%= book.format %>">
                     <option value="1">A3</option>
                     <option value="2">A4</option>
                     <option value="3">A5</option>
@@ -85,6 +87,6 @@
                 <input type="submit" value="Send">
         </form>
         <a href="/delete/:<%= book.id %>">Izbriši knjigu</a>
-    </main>
+</div>
 </body>
 </html>
