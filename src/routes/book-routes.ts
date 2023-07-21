@@ -3,9 +3,6 @@ import type { Request, Response, NextFunction } from "express";
 import { db } from "../utils/db.server";
 import { isLoggedIn } from '../utils/passport';
 
-
-// promijeni summary iz string u text tip
-
 import * as BookService from "../controllers/book-controllers";
 
 const bookRouter = express.Router();

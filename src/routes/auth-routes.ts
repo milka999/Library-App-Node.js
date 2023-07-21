@@ -13,34 +13,7 @@ authRouter.get('/login', async (req: Request, res: Response) => {
    res.render('login');
 });
 
-/* authRouter.post('/login', async(req, res) => {
-    try{
-        const password = req.body.password;
-        const user = await AuthService.getUser(req.body.email);
-        if(user){
-            const match = await bcrypt.compare(password, user.password);
-            if (match) {
-            res.redirect('/');
-            console.log();
-            console.log("Right password!");
-            } else {
-            res.redirect('/login');
-            console.log(isLoggedIn);
-            console.log("Wrong password");
-        }
-    } 
-    }catch(error: any){
-        //return res.status(500).json(error.message);
-    }
-});  */
-
 authRouter.post('/login', passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/' })); 
-
-/* authRouter.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-  });
-   */
 
 authRouter.get('/register', async(req: Request, res: Response) => {
     res.render('register');
